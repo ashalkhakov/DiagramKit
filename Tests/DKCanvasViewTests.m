@@ -231,6 +231,27 @@
 
 #pragma mark Selection
 
+/* As a XIB makes it: decoded (not -initWithFrame:), then placed in its
+ * scroll view before -awakeFromNib. */
+- (void)testDecodedAsFromAXIB
+{
+	NSMutableData *archive = [NSMutableData data];
+	NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:archive];
+	[archiver encodeObject:[[NSView alloc] initWithFrame:NSMakeRect(0, 0, 300, 200)] forKey:@"view"];
+	[archiver finishEncoding];
+	NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:archive];
+	[unarchiver setClass:[DKCanvasView class] forClassName:@"NSView"];
+	DKCanvasView *canvas = [unarchiver decodeObjectForKey:@"view"];
+	[unarchiver finishDecoding];
+	XCTAssertTrue([canvas isKindOfClass:[DKCanvasView class]]);
+	XCTAssertEqual(canvas.zoom, 1.0, @"set up when decoded");
+	NSScrollView *scroll = [[NSScrollView alloc] initWithFrame:NSMakeRect(0, 0, 400, 300)];
+	[scroll setDocumentView:canvas];
+	canvas.dataSource = self;
+	[canvas reloadData];
+	XCTAssertTrue(isfinite(NSWidth(canvas.frame)) && NSWidth(canvas.frame) > 0, @"%@", NSStringFromRect(canvas.frame));
+}
+
 - (void)testAClickSelectsAndShiftExtends
 {
 	[self clickAt:[self middleOf:@"orders"] flags:0];

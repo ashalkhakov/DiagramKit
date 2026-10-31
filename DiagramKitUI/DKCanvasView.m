@@ -74,7 +74,17 @@ static const double DKMaximumZoom = 6.0;
 	return self;
 }
 
-/* From a client's XIB, which does not call -initWithFrame:. */
+/* From a client's XIB, which does not call -initWithFrame:: set up before
+ * it is placed in its scroll view (-viewDidMoveToSuperview sizes it, before
+ * -awakeFromNib). */
+- (nullable instancetype)initWithCoder:(NSCoder *)coder
+{
+	if ((self = [super initWithCoder:coder])) {
+		[self setUp];
+	}
+	return self;
+}
+
 - (void)awakeFromNib
 {
 	[super awakeFromNib];

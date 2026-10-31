@@ -76,7 +76,17 @@ DKBezierPath(DKPath *path)
 	return [text sizeWithAttributes:@{ NSFontAttributeName: DKNSFont(font) }];
 }
 
-- (void)strokePath:(DKPath *)path color:(DKColor)color width:(double)width dashed:(BOOL)dashed
+- (NSSize)sizeOfText:(NSString *)text font:(DKFont *)font wrappedToWidth:(double)width
+{
+	if ([text length] == 0) {
+		return NSMakeSize(0, [self sizeOfText:@" " font:font].height);
+	}
+	NSRect bounds = [text boundingRectWithSize:NSMakeSize(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin
+	                                attributes:@{ NSFontAttributeName: DKNSFont(font) }];
+	return NSMakeSize(ceil(NSWidth(bounds)), ceil(NSHeight(bounds)));
+}
+
+- (void)strokePath:(DKPath *)path color:(DKColor)color width:(double)width style:(DKStrokeStyle)style
 {
 	if (path.empty) {
 		return;
@@ -84,9 +94,9 @@ DKBezierPath(DKPath *path)
 	NSBezierPath *bezier = DKBezierPath(path);
 	[DKNSColor(color) setStroke];
 	[bezier setLineWidth:width];
-	if (dashed) {
-		CGFloat length = DKDashLength(width);
-		CGFloat pattern[2] = { length, length };
+	double lengths[2];
+	if (DKStrokePattern(style, width, lengths) > 0) {
+		CGFloat pattern[2] = { lengths[0], lengths[1] };
 		[bezier setLineDash:pattern count:2 phase:0];
 	}
 	[bezier stroke];
@@ -111,6 +121,26 @@ DKBezierPath(DKPath *path)
 		point.x -= [text sizeWithAttributes:attributes].width / 2;
 	}
 	[text drawAtPoint:point withAttributes:attributes];
+}
+
+- (void)drawText:(NSString *)text centeredAt:(NSPoint)point font:(DKFont *)font color:(DKColor)color
+        rotation:(DKTextRotation)rotation
+{
+	if ([text length] == 0) {
+		return;
+	}
+	NSDictionary *attributes = [self attributesFor:font color:color];
+	NSSize size = [text sizeWithAttributes:attributes];
+	/* Turned about the point; in the flipped view -90 is anticlockwise. */
+	[NSGraphicsContext saveGraphicsState];
+	NSAffineTransform *turn = [NSAffineTransform transform];
+	[turn translateXBy:point.x yBy:point.y];
+	if (rotation != DKTextRotationNone) {
+		[turn rotateByDegrees:rotation == DKTextRotationQuarterAnticlockwise ? -90 : 90];
+	}
+	[turn concat];
+	[text drawAtPoint:NSMakePoint(-size.width / 2, -size.height / 2) withAttributes:attributes];
+	[NSGraphicsContext restoreGraphicsState];
 }
 
 - (void)drawText:(NSString *)text inRect:(NSRect)rect font:(DKFont *)font color:(DKColor)color

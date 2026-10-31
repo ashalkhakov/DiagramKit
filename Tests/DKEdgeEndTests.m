@@ -21,7 +21,7 @@ static DKRecordingSurface *
 DKDrawn(DKEdgeEnd end)
 {
 	DKRecordingSurface *surface = [[DKRecordingSurface alloc] init];
-	DKDrawRoute(surface, @[ DKP(0, 50), DKP(100, 50) ], DKColorBlack(), 1, NO, DKEdgeEndNone, end);
+	DKDrawRoute(surface, @[ DKP(0, 50), DKP(100, 50) ], DKColorBlack(), 1, DKStrokeSolid, DKEdgeEndNone, end);
 	return surface;
 }
 
@@ -55,7 +55,7 @@ DKIsBarAt(DKRecordedOperation *operation, double x)
 	DKRecordingSurface *surface = DKDrawn(DKEdgeEndNone);
 	XCTAssertEqual([surface.operations count], 1u);
 	XCTAssertTrue(NSEqualRects(DKLine(surface).rect, NSMakeRect(0, 50, 100, 0)));
-	XCTAssertFalse(DKLine(surface).dashed);
+	XCTAssertEqual(DKLine(surface).strokeStyle, DKStrokeSolid);
 }
 
 - (void)testArrows
@@ -161,30 +161,30 @@ DKIsBarAt(DKRecordedOperation *operation, double x)
 - (void)testEndsFollowTheirSegment
 {
 	DKRecordingSurface *surface = [[DKRecordingSurface alloc] init];
-	DKDrawRoute(surface, @[ DKP(50, 200), DKP(50, 100), DKP(150, 100), DKP(150, 0) ], DKColorBlack(), 1, YES,
+	DKDrawRoute(surface, @[ DKP(50, 200), DKP(50, 100), DKP(150, 100), DKP(150, 0) ], DKColorBlack(), 1, DKStrokeDashed,
 	            DKEdgeEndCrowFootMany, DKEdgeEndCrowFootMany);
 	NSArray *strokes = [surface operationsOfKind:DKRecordedStroke];
 	XCTAssertEqual([strokes count], 3u);
-	XCTAssertTrue([[strokes firstObject] dashed], @"the line dashed");
-	XCTAssertFalse([[strokes objectAtIndex:1] dashed], @"the marks not");
+	XCTAssertEqual([[strokes firstObject] strokeStyle], DKStrokeDashed, @"the line dashed");
+	XCTAssertEqual([[strokes objectAtIndex:1] strokeStyle], DKStrokeSolid, @"the marks not");
 	XCTAssertTrue(NSEqualRects([[strokes objectAtIndex:1] rect], NSMakeRect(44, 190, 12, 10)), @"start: %@",
 	              NSStringFromRect([[strokes objectAtIndex:1] rect]));
 	XCTAssertTrue(NSEqualRects([[strokes objectAtIndex:2] rect], NSMakeRect(144, 0, 12, 10)), @"end: %@",
 	              NSStringFromRect([[strokes objectAtIndex:2] rect]));
 	/* Repeated points do not turn it. */
 	DKRecordingSurface *repeated = [[DKRecordingSurface alloc] init];
-	DKDrawRoute(repeated, @[ DKP(0, 50), DKP(100, 50), DKP(100, 50) ], DKColorBlack(), 1, NO, DKEdgeEndNone,
+	DKDrawRoute(repeated, @[ DKP(0, 50), DKP(100, 50), DKP(100, 50) ], DKColorBlack(), 1, DKStrokeSolid, DKEdgeEndNone,
 	            DKEdgeEndCrowFootMany);
 	XCTAssertTrue(NSEqualRects([[DKMarks(repeated) firstObject] rect], NSMakeRect(90, 44, 10, 12)));
 	DKRecordingSurface *empty = [[DKRecordingSurface alloc] init];
-	DKDrawRoute(empty, @[ DKP(5, 5) ], DKColorBlack(), 1, NO, DKEdgeEndArrow, DKEdgeEndArrow);
+	DKDrawRoute(empty, @[ DKP(5, 5) ], DKColorBlack(), 1, DKStrokeSolid, DKEdgeEndArrow, DKEdgeEndArrow);
 	XCTAssertEqual([empty.operations count], 0u);
 }
 
 - (void)testMarksGrowWithTheWidth
 {
 	DKRecordingSurface *surface = [[DKRecordingSurface alloc] init];
-	DKDrawRoute(surface, @[ DKP(0, 50), DKP(100, 50) ], DKColorBlack(), 2, NO, DKEdgeEndNone, DKEdgeEndCrowFootMany);
+	DKDrawRoute(surface, @[ DKP(0, 50), DKP(100, 50) ], DKColorBlack(), 2, DKStrokeSolid, DKEdgeEndNone, DKEdgeEndCrowFootMany);
 	XCTAssertTrue(NSEqualRects([[DKMarks(surface) firstObject] rect], NSMakeRect(80, 38, 20, 24)));
 	XCTAssertEqualWithAccuracy(DKEdgeEndLength(DKEdgeEndCrowFootMany, 2), 20, 0.01);
 	XCTAssertEqualWithAccuracy(DKEdgeEndLength(DKEdgeEndCrowFootOne, 1), 12, 0.01);

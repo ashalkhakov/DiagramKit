@@ -44,8 +44,9 @@ Build from source:
 ## What works
 
 - **Drawing through a surface** (`DKSurface`): paths (lines, cubic curves,
-  rectangles, rounded rectangles, ovals), fills, strokes solid or dashed,
-  text set at a point or wrapped in a rectangle, in flipped diagram points.
+  rectangles, rounded rectangles, ovals), fills, strokes solid, dashed or dotted,
+  text set at a point, wrapped in a rectangle, or centred on a point and
+  turned a quarter (a BPMN lane's name), in flipped diagram points.
   `DKAppKitSurface` draws into a view; `DKSVGSurface` writes a standalone
   SVG document with Foundation alone, estimating text widths.
 - **Edge ends** (`DKDrawRoute`): arrows filled and open, UML's triangle and
@@ -140,11 +141,11 @@ item, whether it is for print); it tells its delegate what the user did.
 	for (Reference *r in self.references) {
 		NSArray *route = [DKOrthogonalRouter routeFrom:[self frameOf:r.child] to:[self frameOf:r.parent]
 		                                      avoiding:[self framesBut:r]];
-		DKDrawRoute(surface, route, ink, 1, NO, DKEdgeEndCrowFootZeroOrMany, DKEdgeEndCrowFootOne);
+		DKDrawRoute(surface, route, ink, 1, DKStrokeSolid, DKEdgeEndCrowFootZeroOrMany, DKEdgeEndCrowFootOne);
 	}
 	for (Table *t in self.tables) {
 		[surface strokePath:[DKPath pathWithRoundedRect:[self frameOf:t] radius:5]
-		              color:[state showsSelected:t.name] ? DKColorSelection() : ink width:1 dashed:NO];
+		              color:[state showsSelected:t.name] ? DKColorSelection() : ink width:1 style:DKStrokeSolid];
 		/* ... its name and columns, with -drawText:at:font:color:centered: */
 	}
 }

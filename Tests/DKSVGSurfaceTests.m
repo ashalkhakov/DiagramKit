@@ -53,12 +53,12 @@
 	surface.background = DKColorWhite();
 	[surface fillPath:[DKPath pathWithRect:NSMakeRect(10, 20, 100, 50)] color:DKColorMake(0.9, 0.9, 1, 1)];
 	[surface strokePath:[DKPath pathWithRoundedRect:NSMakeRect(10, 20, 100, 50) radius:6] color:DKColorBlack() width:1
-	             dashed:NO];
-	[surface strokePath:[DKPath pathWithOvalInRect:NSMakeRect(150, 20, 40, 20)] color:DKColorBlack() width:1 dashed:YES];
+	             style:DKStrokeSolid];
+	[surface strokePath:[DKPath pathWithOvalInRect:NSMakeRect(150, 20, 40, 20)] color:DKColorBlack() width:1 style:DKStrokeDashed];
 	DKPath *line = [DKPath pathWithPoints:@[ [NSValue valueWithPoint:NSMakePoint(110, 45)],
 	                                         [NSValue valueWithPoint:NSMakePoint(130, 45)],
 	                                         [NSValue valueWithPoint:NSMakePoint(130, 100)] ]];
-	[surface strokePath:line color:DKColorWithAlpha(DKColorBlack(), 0.5) width:1.5 dashed:NO];
+	[surface strokePath:line color:DKColorWithAlpha(DKColorBlack(), 0.5) width:1.5 style:DKStrokeSolid];
 	DKFont *font = [DKFont systemFontOfSize:10 bold:YES];
 	[surface drawText:@"orders" at:NSMakePoint(60, 25) font:font color:DKColorBlack() centered:YES];
 	[surface drawText:@"id integer" inRect:NSMakeRect(15, 40, 90, 30) font:[DKFont fontWithName:@"Menlo" size:9 bold:NO]
@@ -126,6 +126,49 @@
 	XCTAssertTrue([self parse:[surface SVGString]]);
 	XCTAssertEqual([[_elements filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF == 'text'"]] count], 2u,
 	               @"two lines of 12.1 points fit 25");
+}
+
+
+- (void)testDashedAndDotted
+{
+	double pattern[2];
+	XCTAssertEqual(DKStrokePattern(DKStrokeSolid, 1, pattern), 0u);
+	XCTAssertEqual(DKStrokePattern(DKStrokeDashed, 1.5, pattern), 2u);
+	XCTAssertEqual(pattern[0], 3.0);
+	XCTAssertEqual(pattern[1], 3.0);
+	XCTAssertEqual(DKStrokePattern(DKStrokeDotted, 1, pattern), 2u);
+	XCTAssertEqual(pattern[0], 1.5, @"BPMN's association: {1.5, 3}");
+	XCTAssertEqual(pattern[1], 3.0);
+	DKStrokePattern(DKStrokeDotted, 2, pattern);
+	XCTAssertEqual(pattern[1], 6.0, @"growing with the width");
+
+	DKSVGSurface *surface = [[DKSVGSurface alloc] initWithSize:NSMakeSize(100, 100)];
+	DKPath *line = [DKPath pathWithLineFrom:NSMakePoint(0, 0) to:NSMakePoint(50, 0)];
+	[surface strokePath:line color:DKColorBlack() width:1 style:DKStrokeDotted];
+	[surface strokePath:line color:DKColorBlack() width:1 style:DKStrokeDashed];
+	[surface strokePath:line color:DKColorBlack() width:1 style:DKStrokeSolid];
+	NSString *svg = [surface SVGString];
+	XCTAssertTrue([svg rangeOfString:@"stroke-dasharray=\"1.5 3\""].location != NSNotFound, @"%@", svg);
+	XCTAssertTrue([svg rangeOfString:@"stroke-dasharray=\"2 2\""].location != NSNotFound);
+	XCTAssertEqual([[svg componentsSeparatedByString:@"stroke-dasharray"] count], 3u, @"solid: none");
+}
+
+- (void)testWrappedTextIsMeasuredAsItIsDrawn
+{
+	DKSVGSurface *surface = [[DKSVGSurface alloc] initWithSize:NSMakeSize(100, 100)];
+	DKFont *font = [DKFont systemFontOfSize:10 bold:NO];
+	NSString *text = @"one two three four five six seven eight nine ten";
+	NSSize size = [surface sizeOfText:text font:font wrappedToWidth:40];
+	double line = [surface sizeOfText:@"x" font:font].height;
+	XCTAssertLessThanOrEqual(size.width, 40.0);
+	XCTAssertGreaterThan(size.height, line * 2);
+	XCTAssertEqualWithAccuracy(fmod(size.height, line), 0, 0.001, @"whole lines");
+	[surface drawText:text inRect:NSMakeRect(0, 0, 40, size.height) font:font color:DKColorBlack()];
+	XCTAssertTrue([self parse:[surface SVGString]]);
+	XCTAssertEqualWithAccuracy([[_elements filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF == 'text'"]] count],
+	                           size.height / line, 0.001, @"every line measured is drawn in that height");
+	XCTAssertEqual([surface sizeOfText:@"short" font:font wrappedToWidth:400].height, line, @"one line");
+	XCTAssertEqual([surface sizeOfText:@"two\nlines" font:font wrappedToWidth:400].height, 2 * line);
 }
 
 @end

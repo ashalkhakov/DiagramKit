@@ -133,7 +133,7 @@ DKEdgeEndLength(DKEdgeEnd end, double width)
 static void
 DKStrokeLine(id<DKSurface> surface, NSPoint a, NSPoint b, DKColor color, double width)
 {
-	[surface strokePath:[DKPath pathWithLineFrom:a to:b] color:color width:width dashed:NO];
+	[surface strokePath:[DKPath pathWithLineFrom:a to:b] color:color width:width style:DKStrokeSolid];
 }
 
 static void
@@ -160,7 +160,7 @@ DKDrawEdgeEnd(id<DKSurface> surface, NSPoint tip, NSPoint from, DKEdgeEnd end, D
 			[head close];
 			[surface fillPath:head color:color];
 		} else {
-			[surface strokePath:head color:color width:width dashed:NO];
+			[surface strokePath:head color:color width:width style:DKStrokeSolid];
 		}
 		return;
 	}
@@ -171,7 +171,7 @@ DKDrawEdgeEnd(id<DKSurface> surface, NSPoint tip, NSPoint from, DKEdgeEnd end, D
 		[triangle lineTo:DKAt(f, along, -across)];
 		[triangle lineTo:DKAt(f, along, across)];
 		[triangle close];
-		[surface strokePath:triangle color:color width:width dashed:NO];
+		[surface strokePath:triangle color:color width:width style:DKStrokeSolid];
 		return;
 	}
 	case DKEdgeEndDiamond:
@@ -185,7 +185,7 @@ DKDrawEdgeEnd(id<DKSurface> surface, NSPoint tip, NSPoint from, DKEdgeEnd end, D
 		if (end == DKEdgeEndFilledDiamond) {
 			[surface fillPath:diamond color:color];
 		}
-		[surface strokePath:diamond color:color width:width dashed:NO];
+		[surface strokePath:diamond color:color width:width style:DKStrokeSolid];
 		return;
 	}
 	default:
@@ -204,7 +204,7 @@ DKDrawEdgeEnd(id<DKSurface> surface, NSPoint tip, NSPoint from, DKEdgeEnd end, D
 		[foot lineTo:DKAt(f, 0, DKFootHalfWidth)];
 		[foot moveTo:heel];
 		[foot lineTo:tip];
-		[surface strokePath:foot color:color width:width dashed:NO];
+		[surface strokePath:foot color:color width:width style:DKStrokeSolid];
 	} else {
 		DKBar(surface, f, DKInnerBar, color, width);
 	}
@@ -216,7 +216,7 @@ DKDrawEdgeEnd(id<DKSurface> surface, NSPoint tip, NSPoint from, DKEdgeEnd end, D
 		double r = DKCircleRadius * f.k;
 		[surface strokePath:[DKPath pathWithOvalInRect:NSMakeRect(center.x - r, center.y - r, 2 * r, 2 * r)] color:color
 		              width:width
-		             dashed:NO];
+		             style:DKStrokeSolid];
 	}
 }
 
@@ -267,7 +267,7 @@ DKCircleSpan(DKEdgeEnd end, double width, double *near, double *far)
 }
 
 void
-DKDrawRoute(id<DKSurface> surface, NSArray<NSValue *> *points, DKColor color, double width, BOOL dashed,
+DKDrawRoute(id<DKSurface> surface, NSArray<NSValue *> *points, DKColor color, double width, DKStrokeStyle style,
             DKEdgeEnd startEnd, DKEdgeEnd endEnd)
 {
 	/* The distinct points: a repeated one makes no segment to point along. */
@@ -312,7 +312,7 @@ DKDrawRoute(id<DKSurface> surface, NSArray<NSValue *> *points, DKColor color, do
 	}
 	DKAppendPiece(line, p, count, at, to);
 	if (!line.empty) {
-		[surface strokePath:line color:color width:width dashed:dashed];
+		[surface strokePath:line color:color width:width style:style];
 	}
 	DKDrawEdgeEnd(surface, p[0], p[1], startEnd, color, width);
 	DKDrawEdgeEnd(surface, p[count - 1], p[count - 2], endEnd, color, width);

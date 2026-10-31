@@ -112,7 +112,7 @@ static const double DKTableWidth = 150;
 		}
 		NSArray *route = [DKOrthogonalRouter routeFrom:[self frameOfTable:child] to:[self frameOfTable:parent]
 		                                      avoiding:others];
-		DKDrawRoute(surface, route, ink, 1, NO, (DKEdgeEnd)[[reference objectAtIndex:2] integerValue],
+		DKDrawRoute(surface, route, ink, 1, DKStrokeSolid, (DKEdgeEnd)[[reference objectAtIndex:2] integerValue],
 		            (DKEdgeEnd)[[reference objectAtIndex:3] integerValue]);
 	}
 	DKFont *title = [DKFont systemFontOfSize:11 bold:YES];
@@ -136,9 +136,9 @@ static const double DKTableWidth = 150;
 		                                          to:NSMakePoint(NSMaxX(frame), NSMinY(frame) + DKHeaderHeight)]
 		              color:ink
 		              width:0.75
-		             dashed:NO];
+		             style:DKStrokeSolid];
 		BOOL selected = [state showsSelected:table];
-		[surface strokePath:outline color:selected ? DKColorSelection() : ink width:selected ? 2 : 1 dashed:NO];
+		[surface strokePath:outline color:selected ? DKColorSelection() : ink width:selected ? 2 : 1 style:DKStrokeSolid];
 		[surface drawText:table at:NSMakePoint(NSMidX(frame), NSMinY(frame) + 4) font:title color:ink centered:YES];
 		double y = NSMinY(frame) + DKHeaderHeight + 3;
 		for (NSString *text in [_columns objectForKey:table]) {

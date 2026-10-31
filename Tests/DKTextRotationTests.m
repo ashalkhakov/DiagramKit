@@ -76,7 +76,10 @@ static const NSRect DKBounds = { { 0, 0 }, { 240, 240 } };
 			if ([color brightnessComponent] > 0.5 || [color alphaComponent] < 0.5) {
 				continue;
 			}
-			minX = MIN(minX, x), maxX = MAX(maxX, x), minY = MIN(minY, y), maxY = MAX(maxY, y);
+			minX = MIN(minX, x);
+			maxX = MAX(maxX, x);
+			minY = MIN(minY, y);
+			maxY = MAX(maxY, y);
 			if ((vertical ? y : x) < (vertical ? height : width) / 2) {
 				(*first)++;
 			} else {

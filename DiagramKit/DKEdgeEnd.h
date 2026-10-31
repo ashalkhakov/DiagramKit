@@ -40,11 +40,11 @@ typedef NS_ENUM(NSInteger, DKEdgeEnd) {
 	DKEdgeEndCrowFootZeroOrMany,
 };
 
-/// The route's line (dashed or not), then each end's mark (solid), in the
+/// The route's line (in the style), then each end's mark (solid), in the
 /// colour and width. A route of fewer than two distinct points draws
 /// nothing.
 DIAGRAMKIT_EXPORT void DKDrawRoute(id<DKSurface> surface, NSArray<NSValue *> *points, DKColor color, double width,
-                                   BOOL dashed, DKEdgeEnd startEnd, DKEdgeEnd endEnd);
+                                   DKStrokeStyle style, DKEdgeEnd startEnd, DKEdgeEnd endEnd);
 /// One end's mark alone: at @a tip, pointing away from @a from.
 DIAGRAMKIT_EXPORT void DKDrawEdgeEnd(id<DKSurface> surface, NSPoint tip, NSPoint from, DKEdgeEnd end, DKColor color,
                                      double width);

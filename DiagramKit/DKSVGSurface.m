@@ -144,15 +144,15 @@ DKSVGAdvance(unichar c)
 	return [NSString stringWithFormat:@"<path d=\"%@\"", data];
 }
 
-- (void)strokePath:(DKPath *)path color:(DKColor)color width:(double)width dashed:(BOOL)dashed
+- (void)strokePath:(DKPath *)path color:(DKColor)color width:(double)width style:(DKStrokeStyle)style
 {
 	if (path.empty) {
 		return;
 	}
 	NSString *dash = @"";
-	if (dashed) {
-		NSString *length = DKSVGNumber(DKDashLength(width));
-		dash = [NSString stringWithFormat:@" stroke-dasharray=\"%@ %@\"", length, length];
+	double pattern[2];
+	if (DKStrokePattern(style, width, pattern) > 0) {
+		dash = [NSString stringWithFormat:@" stroke-dasharray=\"%@ %@\"", DKSVGNumber(pattern[0]), DKSVGNumber(pattern[1])];
 	}
 	[_body appendFormat:@"%@ fill=\"none\" %@ stroke-width=\"%@\"%@/>\n", [self shapeOf:path], DKSVGPaint(@"stroke", color),
 	                    DKSVGNumber(width), dash];
@@ -203,26 +203,43 @@ DKSVGAdvance(unichar c)
 	[self line:text at:NSMakePoint(point.x, point.y - height / 2) font:font color:color centered:YES transform:transform];
 }
 
-- (void)drawText:(NSString *)text inRect:(NSRect)rect font:(DKFont *)font color:(DKColor)color
+/* The text wrapped at words to the width, line by line: what is drawn in
+ * a rectangle, and measured. */
+- (NSArray<NSString *> *)linesOfText:(NSString *)text font:(DKFont *)font width:(double)width
 {
-	/* Wrapped at words to the width, line by line. */
-	double y = NSMinY(rect);
-	double height = font.size * 1.21;
+	NSMutableArray *lines = [NSMutableArray array];
 	for (NSString *paragraph in [text ?: @"" componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]]) {
 		NSMutableString *line = [NSMutableString string];
 		for (NSString *word in [paragraph componentsSeparatedByString:@" "]) {
 			NSString *longer = [line length] > 0 ? [NSString stringWithFormat:@"%@ %@", line, word] : word;
-			if ([line length] > 0 && [self sizeOfText:longer font:font].width > NSWidth(rect)) {
-				if (y + height > NSMaxY(rect) + 0.5) {
-					return;
-				}
-				[self line:line at:NSMakePoint(NSMinX(rect), y) font:font color:color centered:NO];
-				y += height;
+			if ([line length] > 0 && [self sizeOfText:longer font:font].width > width) {
+				[lines addObject:[line copy]];
 				[line setString:word];
 			} else {
 				[line setString:longer];
 			}
 		}
+		[lines addObject:[line copy]];
+	}
+	return lines;
+}
+
+- (NSSize)sizeOfText:(NSString *)text font:(DKFont *)font wrappedToWidth:(double)width
+{
+	NSArray *lines = [self linesOfText:text font:font width:width];
+	double widest = 0;
+	for (NSString *line in lines) {
+		widest = MAX(widest, [self sizeOfText:line font:font].width);
+	}
+	return NSMakeSize(widest, [lines count] * [self sizeOfText:@"" font:font].height);
+}
+
+- (void)drawText:(NSString *)text inRect:(NSRect)rect font:(DKFont *)font color:(DKColor)color
+{
+	/* What does not fit the height is left out. */
+	double y = NSMinY(rect);
+	double height = [self sizeOfText:@"" font:font].height;
+	for (NSString *line in [self linesOfText:text font:font width:NSWidth(rect)]) {
 		if (y + height > NSMaxY(rect) + 0.5) {
 			return;
 		}

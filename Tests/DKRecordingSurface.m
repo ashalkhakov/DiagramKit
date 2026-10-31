@@ -34,14 +34,19 @@
 	return [_measure sizeOfText:text font:font];
 }
 
-- (void)strokePath:(DKPath *)path color:(DKColor)color width:(double)width dashed:(BOOL)dashed
+- (NSSize)sizeOfText:(NSString *)text font:(DKFont *)font wrappedToWidth:(double)width
+{
+	return [_measure sizeOfText:text font:font wrappedToWidth:width];
+}
+
+- (void)strokePath:(DKPath *)path color:(DKColor)color width:(double)width style:(DKStrokeStyle)style
 {
 	DKRecordedOperation *operation = [[DKRecordedOperation alloc] init];
 	operation.kind = DKRecordedStroke;
 	operation.path = [path copy];
 	operation.color = color;
 	operation.width = width;
-	operation.dashed = dashed;
+	operation.strokeStyle = style;
 	operation.rect = path.bounds;
 	[_operations addObject:operation];
 }

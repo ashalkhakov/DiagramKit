@@ -44,7 +44,7 @@ Build from source:
 ## What works
 
 - **Drawing through a surface** (`DKSurface`): paths (lines, cubic curves,
-  rectangles, rounded rectangles, ovals), fills, strokes solid or dashed,
+  rectangles, rounded rectangles, ovals), fills, strokes solid, dashed or dotted,
   text set at a point, wrapped in a rectangle, or centred on a point and
   turned a quarter (a BPMN lane's name), in flipped diagram points.
   `DKAppKitSurface` draws into a view; `DKSVGSurface` writes a standalone
@@ -141,11 +141,11 @@ item, whether it is for print); it tells its delegate what the user did.
 	for (Reference *r in self.references) {
 		NSArray *route = [DKOrthogonalRouter routeFrom:[self frameOf:r.child] to:[self frameOf:r.parent]
 		                                      avoiding:[self framesBut:r]];
-		DKDrawRoute(surface, route, ink, 1, NO, DKEdgeEndCrowFootZeroOrMany, DKEdgeEndCrowFootOne);
+		DKDrawRoute(surface, route, ink, 1, DKStrokeSolid, DKEdgeEndCrowFootZeroOrMany, DKEdgeEndCrowFootOne);
 	}
 	for (Table *t in self.tables) {
 		[surface strokePath:[DKPath pathWithRoundedRect:[self frameOf:t] radius:5]
-		              color:[state showsSelected:t.name] ? DKColorSelection() : ink width:1 dashed:NO];
+		              color:[state showsSelected:t.name] ? DKColorSelection() : ink width:1 style:DKStrokeSolid];
 		/* ... its name and columns, with -drawText:at:font:color:centered: */
 	}
 }

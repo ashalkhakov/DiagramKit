@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, DKRecordedKind) {
 @property (nonatomic, strong, nullable) DKPath *path;
 @property (nonatomic) DKColor color;
 @property (nonatomic) double width;
-@property (nonatomic) BOOL dashed;
+@property (nonatomic) DKStrokeStyle strokeStyle;
 @property (nonatomic, copy, nullable) NSString *text;
 @property (nonatomic) NSRect rect;
 /// Text centred on a point: the point (the rect's origin) and its turn.

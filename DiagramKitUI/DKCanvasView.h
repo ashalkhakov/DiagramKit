@@ -16,7 +16,9 @@
  * selection a point (Shift: ten); Command and the scroll wheel zoom. A
  * double-click and a right-click go to the delegate (a right-click on an
  * item not selected selects it first, as the Finder does). Delete or
- * Backspace sends -delete: up the responder chain.
+ * Backspace sends -delete: up the responder chain, and other keys go up it
+ * too. A client with tools (place a shape, draw an edge) takes the presses
+ * it wants first (-canvas:mouseDown:atPoint:).
  *
  * Placed in a client's XIB (a custom view in a scroll view, its data
  * source and delegate outlets connected) or made in code: it sets itself
@@ -70,6 +72,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// The text -editTextOfItem: put up, finished (Return, or a click
 /// elsewhere) and changed.
 - (void)canvas:(DKCanvasView *)canvas didEditTextOfItem:(id)item text:(NSString *)text;
+/// A press of the left button at @a point, before the canvas makes
+/// anything of it: YES takes it -- a tool placing a shape, an edge drawn
+/// out of a port -- and its drags and release are the delegate's too
+/// (the canvas autoscrolls); NO leaves it to the canvas. Space-drag pans
+/// first.
+- (BOOL)canvas:(DKCanvasView *)canvas mouseDown:(NSEvent *)event atPoint:(NSPoint)point;
+- (void)canvas:(DKCanvasView *)canvas mouseDragged:(NSEvent *)event atPoint:(NSPoint)point;
+- (void)canvas:(DKCanvasView *)canvas mouseUp:(NSEvent *)event atPoint:(NSPoint)point;
 @end
 
 @interface DKCanvasView : NSView

@@ -8,6 +8,8 @@ typedef NS_ENUM(NSInteger, DKGesture) {
 	DKGestureMove,
 	DKGestureBand,
 	DKGesturePan,
+	/* The delegate's: it took the press. */
+	DKGestureDelegate,
 };
 
 static const double DKMinimumZoom = 0.25;
@@ -403,6 +405,7 @@ static const double DKMaximumZoom = 6.0;
 		break;
 	}
 	case DKGesturePan:
+	case DKGestureDelegate:
 	case DKGestureNone:
 		break;
 	}
@@ -424,6 +427,11 @@ static const double DKMaximumZoom = 6.0;
 	_panFrom = [event locationInWindow];
 	if (_spaceHeld) {
 		[self beginPan];
+		return;
+	}
+	if ([_delegate respondsToSelector:@selector(canvas:mouseDown:atPoint:)] &&
+	    [_delegate canvas:self mouseDown:event atPoint:point]) {
+		_gesture = DKGestureDelegate;
 		return;
 	}
 	id item = _dataSource != nil ? [_dataSource canvas:self itemAtPoint:point] : nil;
@@ -480,6 +488,12 @@ static const double DKMaximumZoom = 6.0;
 	}
 	_at = [self pointOf:event];
 	[self autoscroll:event];
+	if (_gesture == DKGestureDelegate) {
+		if ([_delegate respondsToSelector:@selector(canvas:mouseDragged:atPoint:)]) {
+			[_delegate canvas:self mouseDragged:event atPoint:[self pointOf:event]];
+		}
+		return;
+	}
 	[self setNeedsDisplay:YES];
 }
 
@@ -517,6 +531,11 @@ static const double DKMaximumZoom = 6.0;
 	}
 	case DKGesturePan:
 		[self endPan];
+		break;
+	case DKGestureDelegate:
+		if ([_delegate respondsToSelector:@selector(canvas:mouseUp:atPoint:)]) {
+			[_delegate canvas:self mouseUp:event atPoint:_at];
+		}
 		break;
 	case DKGestureNone:
 		break;

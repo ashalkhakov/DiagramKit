@@ -65,8 +65,9 @@ Build from source:
   diagram point), click and band selection, drags shown as dashed outlines
   and committed once, Space-drag and middle-button panning, arrow-key
   nudges, autoscroll, ⌘-scroll zoom, double-click and context menus for the
-  delegate, text edited in place; export to PDF, PNG and SVG, and printing.
-- **Checked**: 57 tests, the canvas's driven by synthesized events, on
+  delegate, presses a client's tools take, text edited in place; export to
+  PDF, PNG and SVG, and printing.
+- **Checked**: 58 tests, the canvas's driven by synthesized events, on
   macOS and on Linux (GNUstep); CI runs them on every push, on Windows too.
 
 ## Limitations

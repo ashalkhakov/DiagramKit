@@ -22,6 +22,9 @@
 	NSMutableArray *_edits;
 	NSMenu *_menu;
 	id _menuItem;
+	/* A tool the test is: presses taken while it is on, and what they did. */
+	BOOL _tool;
+	NSMutableArray<NSString *> *_toolEvents;
 }
 
 - (void)setUp
@@ -33,6 +36,7 @@
 	_moves = [NSMutableArray array];
 	_doubleClicked = [NSMutableArray array];
 	_edits = [NSMutableArray array];
+	_toolEvents = [NSMutableArray array];
 	_menu = [[NSMenu alloc] initWithTitle:@"Table"];
 	[_menu addItemWithTitle:@"Open" action:NULL keyEquivalent:@""];
 	_window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 400, 300)
@@ -131,6 +135,24 @@
 - (void)canvas:(DKCanvasView *)canvas didEditTextOfItem:(id)item text:(NSString *)text
 {
 	[_edits addObject:@[ item, text ]];
+}
+
+- (BOOL)canvas:(DKCanvasView *)canvas mouseDown:(NSEvent *)event atPoint:(NSPoint)point
+{
+	if (_tool) {
+		[_toolEvents addObject:[NSString stringWithFormat:@"down %g %g", point.x, point.y]];
+	}
+	return _tool;
+}
+
+- (void)canvas:(DKCanvasView *)canvas mouseDragged:(NSEvent *)event atPoint:(NSPoint)point
+{
+	[_toolEvents addObject:[NSString stringWithFormat:@"drag %g %g", point.x, point.y]];
+}
+
+- (void)canvas:(DKCanvasView *)canvas mouseUp:(NSEvent *)event atPoint:(NSPoint)point
+{
+	[_toolEvents addObject:[NSString stringWithFormat:@"up %g %g", point.x, point.y]];
 }
 
 #pragma mark Events
@@ -391,6 +413,23 @@
 	XCTAssertEqual(menu, _menu);
 	XCTAssertEqualObjects(_menuItem, @"orders");
 	XCTAssertEqualObjects(_canvas.selection, [NSSet setWithObject:@"orders"], @"selected first, as the Finder does");
+}
+
+/* A tool takes the press: the drag and the release are its, and the
+ * canvas neither selects nor moves. */
+- (void)testTheDelegateMayTakeAPress
+{
+	_tool = YES;
+	NSPoint from = [self middleOf:@"orders"];
+	[self dragFrom:from to:NSMakePoint(from.x + 40, from.y)];
+	XCTAssertEqual([_toolEvents count], 6u, @"%@", _toolEvents);
+	XCTAssertEqualObjects([_toolEvents firstObject], ([NSString stringWithFormat:@"down %g %g", from.x, from.y]));
+	XCTAssertEqualObjects([_toolEvents lastObject], ([NSString stringWithFormat:@"up %g %g", from.x + 40, from.y]));
+	XCTAssertEqual([_canvas.selection count], 0u);
+	XCTAssertEqual([_moves count], 0u);
+	_tool = NO;
+	[self clickAt:from flags:0];
+	XCTAssertEqualObjects(_canvas.selection, [NSSet setWithObject:@"orders"], @"the tool put away: the canvas's again");
 }
 
 - (void)testTextIsEditedInPlace

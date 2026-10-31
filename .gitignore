@@ -1,0 +1,11 @@
+# Builds: GNUstep's under build/gnustep, Makefile.apple's under build/apple
+build/
+obj/
+*.bundle/
+DerivedData/
+# What gnustep-release-actions' scripts/deps.sh fetches
+.deps/
+# Xcode's per-user state
+xcuserdata/
+*.xcuserstate
+.DS_Store

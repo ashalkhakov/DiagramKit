@@ -1,0 +1,631 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 70;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6D08404CC4A20F40518B0C18 /* DiagramKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A42D87DDCA97E924A355A57B /* DiagramKit.framework */; };
+		736AC7400BA4606319279C43 /* DiagramKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A42D87DDCA97E924A355A57B /* DiagramKit.framework */; };
+		E44FEEE8619334CA6E548979 /* DiagramKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DD3E70C112EEB43B231ABE9 /* DiagramKitUI.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		68CC419B68DBA1EE150BAEA0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 54F0C87C55FCADA6A98F612A;
+			remoteInfo = DiagramKit;
+		};
+		417310722C87AF14B4D0B69B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 54F0C87C55FCADA6A98F612A;
+			remoteInfo = DiagramKit;
+		};
+		7C2B9C8A89BA9A653529179F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 524E64701C885F4AB446162B;
+			remoteInfo = DiagramKitUI;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A42D87DDCA97E924A355A57B /* DiagramKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DiagramKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4DD3E70C112EEB43B231ABE9 /* DiagramKitUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DiagramKitUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D7C6F38F70E7123932ADE0E /* DiagramKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiagramKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		7FB2DD114663E27041CD780B /* Exceptions for "DiagramKit" folder in "DiagramKit" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				GNUmakefile,
+			);
+			publicHeaders = (
+				DKColor.h,
+				DKDrawingState.h,
+				DKEdgeEnd.h,
+				DKFont.h,
+				DKForceLayout.h,
+				DKGeometry.h,
+				DKLayeredLayout.h,
+				DKOrthogonalRouter.h,
+				DKPath.h,
+				DKSVGSurface.h,
+				DKSurface.h,
+				DiagramKit.h,
+			);
+			target = 54F0C87C55FCADA6A98F612A /* DiagramKit */;
+		};
+		5BD353058207FC4DE85C8170 /* Exceptions for "DiagramKitUI" folder in "DiagramKitUI" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				DiagramKitUICompat.h,
+				GNUmakefile,
+			);
+			publicHeaders = (
+				DKAppKitSurface.h,
+				DKCanvasView.h,
+				DiagramKitUI.h,
+			);
+			target = 524E64701C885F4AB446162B /* DiagramKitUI */;
+		};
+		69AA0FC2A64CD83AFFAC2484 /* Exceptions for "Tests" folder in "DiagramKitTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				GNUmakefile,
+			);
+			target = AAB0EEEDD7FA7CC6C065FFB6 /* DiagramKitTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		E36568E618B79D4B5238330C /* DiagramKit */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7FB2DD114663E27041CD780B /* Exceptions for "DiagramKit" folder in "DiagramKit" target */, ); explicitFileTypes = {}; explicitFolders = (); path = DiagramKit; sourceTree = "<group>"; };
+		7620CDFC6F8B21A3D966459B /* DiagramKitUI */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (5BD353058207FC4DE85C8170 /* Exceptions for "DiagramKitUI" folder in "DiagramKitUI" target */, ); explicitFileTypes = {}; explicitFolders = (); path = DiagramKitUI; sourceTree = "<group>"; };
+		6C6F7EFB863C8005296016A7 /* Tests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (69AA0FC2A64CD83AFFAC2484 /* Exceptions for "Tests" folder in "DiagramKitTests" target */, ); explicitFileTypes = {}; explicitFolders = (); path = Tests; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5053690CC08BF891832BAA56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E77AC42C70E35B0F606D8898 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D08404CC4A20F40518B0C18 /* DiagramKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3741F13BAB8B1266A303E9A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				736AC7400BA4606319279C43 /* DiagramKit.framework in Frameworks */,
+				E44FEEE8619334CA6E548979 /* DiagramKitUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FAD58DE7366495DB4650CFEF = {
+			isa = PBXGroup;
+			children = (
+				E36568E618B79D4B5238330C /* DiagramKit */,
+				7620CDFC6F8B21A3D966459B /* DiagramKitUI */,
+				6C6F7EFB863C8005296016A7 /* Tests */,
+				86024CAD1E83101D97359D73 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		86024CAD1E83101D97359D73 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A42D87DDCA97E924A355A57B /* DiagramKit.framework */,
+				4DD3E70C112EEB43B231ABE9 /* DiagramKitUI.framework */,
+				9D7C6F38F70E7123932ADE0E /* DiagramKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		1851954ECA5463CB84A31FAD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26BFCF4271FEE36E5AEF6469 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		54F0C87C55FCADA6A98F612A /* DiagramKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 086F370EEC29D0E794792EB8 /* Build configuration list for PBXNativeTarget "DiagramKit" */;
+			buildPhases = (
+				1851954ECA5463CB84A31FAD /* Headers */,
+				6C4BD7E9C0F7AE11DF60AE67 /* Sources */,
+				5053690CC08BF891832BAA56 /* Frameworks */,
+				E1053FB0760AF7B4F94780EB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				E36568E618B79D4B5238330C /* DiagramKit */,
+			);
+			name = DiagramKit;
+			packageProductDependencies = (
+			);
+			productName = DiagramKit;
+			productReference = A42D87DDCA97E924A355A57B /* DiagramKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		524E64701C885F4AB446162B /* DiagramKitUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B6B089B00B0B9752F4FE99F2 /* Build configuration list for PBXNativeTarget "DiagramKitUI" */;
+			buildPhases = (
+				26BFCF4271FEE36E5AEF6469 /* Headers */,
+				8338AC476D95D1B55C0666A4 /* Sources */,
+				E77AC42C70E35B0F606D8898 /* Frameworks */,
+				565F1FB97E35C4670D31C053 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				136639D92D6D6542462E2571 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				7620CDFC6F8B21A3D966459B /* DiagramKitUI */,
+			);
+			name = DiagramKitUI;
+			packageProductDependencies = (
+			);
+			productName = DiagramKitUI;
+			productReference = 4DD3E70C112EEB43B231ABE9 /* DiagramKitUI.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		AAB0EEEDD7FA7CC6C065FFB6 /* DiagramKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A953AF2D4F110004F8660C00 /* Build configuration list for PBXNativeTarget "DiagramKitTests" */;
+			buildPhases = (
+				B3EAF796F9B3F28B371AEEB7 /* Sources */,
+				3741F13BAB8B1266A303E9A4 /* Frameworks */,
+				DABAF1214626B3FBB10DD591 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				46BA1214F879F34B1D995D70 /* PBXTargetDependency */,
+				0615FEBA798C932B5C9AA44A /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				6C6F7EFB863C8005296016A7 /* Tests */,
+			);
+			name = DiagramKitTests;
+			packageProductDependencies = (
+			);
+			productName = DiagramKitTests;
+			productReference = 9D7C6F38F70E7123932ADE0E /* DiagramKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		46F86FAA6BBF9AC94A7E4595 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					54F0C87C55FCADA6A98F612A = {
+						CreatedOnToolsVersion = 26.0;
+					};
+					524E64701C885F4AB446162B = {
+						CreatedOnToolsVersion = 26.0;
+					};
+					AAB0EEEDD7FA7CC6C065FFB6 = {
+						CreatedOnToolsVersion = 26.0;
+					};
+				};
+			};
+			buildConfigurationList = 2929D8BC0CA11EC77EAF5AA0 /* Build configuration list for PBXProject "DiagramKit" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FAD58DE7366495DB4650CFEF;
+			minimizedProjectReferenceProxies = 1;
+			productRefGroup = 86024CAD1E83101D97359D73 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				54F0C87C55FCADA6A98F612A /* DiagramKit */,
+				524E64701C885F4AB446162B /* DiagramKitUI */,
+				AAB0EEEDD7FA7CC6C065FFB6 /* DiagramKitTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E1053FB0760AF7B4F94780EB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		565F1FB97E35C4670D31C053 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DABAF1214626B3FBB10DD591 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6C4BD7E9C0F7AE11DF60AE67 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8338AC476D95D1B55C0666A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3EAF796F9B3F28B371AEEB7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		136639D92D6D6542462E2571 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 54F0C87C55FCADA6A98F612A /* DiagramKit */;
+			targetProxy = 68CC419B68DBA1EE150BAEA0 /* PBXContainerItemProxy */;
+		};
+		46BA1214F879F34B1D995D70 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 54F0C87C55FCADA6A98F612A /* DiagramKit */;
+			targetProxy = 417310722C87AF14B4D0B69B /* PBXContainerItemProxy */;
+		};
+		0615FEBA798C932B5C9AA44A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 524E64701C885F4AB446162B /* DiagramKitUI */;
+			targetProxy = 7C2B9C8A89BA9A653529179F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		C56CC46ABEE1CC7CE78EC10A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 0.1.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E51B9D4598CBC018C0ADBEBD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 0.1.0;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		FA7DD1708AB0482308859D63 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright (c) 2026 Artyom Shalkhakov. MIT.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = org.underivable.DiagramKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		ECD310ACB677DC0157B9B6D2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright (c) 2026 Artyom Shalkhakov. MIT.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = org.underivable.DiagramKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		CBEC64983882EF5AC2B2701A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright (c) 2026 Artyom Shalkhakov. MIT.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = org.underivable.DiagramKitUI;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		93DB0E04449FEE4519DB00C9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright (c) 2026 Artyom Shalkhakov. MIT.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = org.underivable.DiagramKitUI;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		ACA76795BF910212CE467581 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.underivable.DiagramKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6888BD9955DA5F9AE0955284 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.underivable.DiagramKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2929D8BC0CA11EC77EAF5AA0 /* Build configuration list for PBXProject "DiagramKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C56CC46ABEE1CC7CE78EC10A /* Debug */,
+				E51B9D4598CBC018C0ADBEBD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		086F370EEC29D0E794792EB8 /* Build configuration list for PBXNativeTarget "DiagramKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA7DD1708AB0482308859D63 /* Debug */,
+				ECD310ACB677DC0157B9B6D2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B6B089B00B0B9752F4FE99F2 /* Build configuration list for PBXNativeTarget "DiagramKitUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CBEC64983882EF5AC2B2701A /* Debug */,
+				93DB0E04449FEE4519DB00C9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A953AF2D4F110004F8660C00 /* Build configuration list for PBXNativeTarget "DiagramKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ACA76795BF910212CE467581 /* Debug */,
+				6888BD9955DA5F9AE0955284 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+}

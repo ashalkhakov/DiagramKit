@@ -1,0 +1,58 @@
+# DiagramKit on macOS, the familiar way (gnustep-release-actions' macos.yml
+# runs the same):
+#
+#   make -f Makefile.apple            DiagramKit and DiagramKitUI, universal
+#                                     (Release), as XCFrameworks
+#   make -f Makefile.apple check      the tests (the canvas's drive a window,
+#                                     never shown)
+#   make -f Makefile.apple install DESTDIR=<dir>       DiagramKit.xcframework
+#                                     and DiagramKitUI.xcframework, for what
+#                                     builds on them
+#   make -f Makefile.apple installcheck DESTDIR=<dir>  both there, with their
+#                                     headers, and universal
+#
+# The test bundle is not signed by default: nothing ships from it. Where an
+# unsigned test runner is held up (macOS asking again for access to the
+# volume the build is on), sign it: TEST_SIGNING="CODE_SIGN_IDENTITY=<id>
+# CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=<team>", and DERIVED=<a folder on
+# the internal disk>.
+
+BUILD = build/apple
+DERIVED = $(BUILD)/DerivedData
+XCODEBUILD = xcodebuild -project DiagramKit.xcodeproj -derivedDataPath $(DERIVED)
+FRAMEWORKS = DiagramKit DiagramKitUI
+TEST_SIGNING = CODE_SIGNING_ALLOWED=NO
+
+all:
+	for f in $(FRAMEWORKS); do \
+	  rm -rf $(BUILD)/$$f.xcarchive $(BUILD)/$$f.xcframework; \
+	  $(XCODEBUILD) -scheme $$f -configuration Release -destination 'generic/platform=macOS' \
+	    -archivePath $(BUILD)/$$f.xcarchive archive SKIP_INSTALL=NO || exit 1; \
+	  framework=$$(find $(BUILD)/$$f.xcarchive/Products -name $$f.framework -maxdepth 4 | head -1); \
+	  xcodebuild -create-xcframework -framework "$$framework" -output $(BUILD)/$$f.xcframework || exit 1; \
+	done
+
+check:
+	$(XCODEBUILD) -scheme DiagramKitTests -configuration Debug -destination 'platform=macOS' test $(TEST_SIGNING)
+
+install: all
+	@test -n "$(DESTDIR)" || { echo "install: give DESTDIR"; exit 1; }
+	mkdir -p $(DESTDIR)
+	for f in $(FRAMEWORKS); do \
+	  rm -rf $(DESTDIR)/$$f.xcframework && ditto $(BUILD)/$$f.xcframework $(DESTDIR)/$$f.xcframework || exit 1; \
+	done
+
+installcheck:
+	@test -n "$(DESTDIR)" || { echo "installcheck: give DESTDIR"; exit 1; }
+	for f in $(FRAMEWORKS); do \
+	  binary=$$(find $(DESTDIR)/$$f.xcframework -path "*/$$f.framework/Versions/A/$$f" -type f | head -1); \
+	  test -n "$$binary" || { echo "$$f.xcframework: no $$f binary"; exit 1; }; \
+	  lipo "$$binary" -verify_arch arm64 x86_64 || { echo "$$f: not universal"; exit 1; }; \
+	  test -f "$$(dirname $$binary)/Headers/$$f.h" || { echo "$$f: no umbrella header"; exit 1; }; \
+	  echo "$$f.xcframework: $$(lipo -archs $$binary)"; \
+	done
+
+clean:
+	rm -rf $(BUILD)
+
+.PHONY: all check install installcheck clean

@@ -29,6 +29,8 @@
 	 * what an extending press changes), and how many were asked. */
 	BOOL _keepsPressed;
 	NSUInteger _pressesAsked;
+	/* What a press selects, said outright (nil: not said). */
+	NSSet *_pressSelects;
 }
 
 - (void)setUp
@@ -122,6 +124,9 @@
 
 - (NSSet *)canvas:(DKCanvasView *)canvas selectionForPressOnItem:(id)item extending:(BOOL)extend
 {
+	if (_pressSelects != nil) {
+		return _pressSelects;
+	}
 	if (!_keepsPressed) {
 		return nil;
 	}
@@ -385,6 +390,45 @@
 	_keepsPressed = NO;
 	[self clickAt:[self middleOf:@"orders"] flags:NSEventModifierFlagShift];
 	XCTAssertEqualObjects(_canvas.selection, [NSSet setWithObject:@"products"]);
+}
+
+/* What it says is selected, and told once; a drag moves it only when the
+ * pressed item is in it -- a plain press too: what it says replaces the
+ * selection the press would have kept. */
+- (void)testWhatAPressSaysIsSelectedAndDrags
+{
+	NSPoint grab = [self middleOf:@"orders"];
+	NSPoint to = NSMakePoint(grab.x + 20, grab.y + 10);
+
+	_canvas.selection = [NSSet setWithObject:@"orders"];
+	NSUInteger changes = _selectionChanges;
+	_pressSelects = [NSSet setWithObjects:@"orders", @"products", nil];
+	[self dragFrom:grab to:to];
+	XCTAssertEqualObjects(_canvas.selection, _pressSelects);
+	XCTAssertEqual(_selectionChanges, changes + 1, @"told, once");
+	XCTAssertEqual([_moves count], 1u);
+	XCTAssertEqualObjects([[_moves firstObject] firstObject], (@[ @"orders", @"products" ]), @"what it said, dragged");
+
+	/* Without the pressed item: selected, not dragged. */
+	[_moves removeAllObjects];
+	_canvas.selection = [NSSet setWithObject:@"orders"];
+	changes = _selectionChanges;
+	_pressSelects = [NSSet setWithObject:@"products"];
+	grab = [self middleOf:@"orders"];
+	[self dragFrom:grab to:NSMakePoint(grab.x + 20, grab.y + 10)];
+	XCTAssertEqualObjects(_canvas.selection, [NSSet setWithObject:@"products"]);
+	XCTAssertEqual(_selectionChanges, changes + 1);
+	XCTAssertEqual([_moves count], 0u, @"the pressed item not in it: no drag");
+
+	/* A plain press on a selected item, said to select it alone: the drag
+	 * moves it alone, not the selection the canvas would have kept. */
+	_canvas.selection = [NSSet setWithObjects:@"orders", @"products", nil];
+	_pressSelects = [NSSet setWithObject:@"orders"];
+	grab = [self middleOf:@"orders"];
+	[self dragFrom:grab to:NSMakePoint(grab.x + 20, grab.y + 10)];
+	XCTAssertEqual([_moves count], 1u);
+	XCTAssertEqualObjects([[_moves firstObject] firstObject], @[ @"orders" ]);
+	_pressSelects = nil;
 }
 
 - (void)testTheArrowKeysNudge

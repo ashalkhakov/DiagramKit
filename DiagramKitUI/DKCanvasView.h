@@ -71,7 +71,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// selection kept when it is in it; extending, the item added or taken
 /// away). A drag from the press moves the selection when the item is in
 /// it -- a client whose items have parts (a table's columns, a fact
-/// type's roles) keeps the item selected while it extends the parts.
+/// type's roles) keeps the item selected while it extends the parts. It is
+/// asked on every press on an item, a plain one too: a set returned there
+/// replaces the selection the canvas would have kept, so a drag moves that
+/// set, not the selection pressed in.
 - (nullable NSSet *)canvas:(DKCanvasView *)canvas selectionForPressOnItem:(id)item extending:(BOOL)extend;
 /// A double-click on the item, or on nothing (nil).
 - (void)canvas:(DKCanvasView *)canvas doubleClickedItem:(nullable id)item;

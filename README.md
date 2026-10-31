@@ -68,7 +68,7 @@ Build from source:
   nudges, autoscroll, ⌘-scroll zoom, double-click and context menus for the
   delegate, presses a client's tools take or whose selection it says, text
   edited in place; export to PDF, PNG and SVG, and printing.
-- **Checked**: 58 tests, the canvas's driven by synthesized events, on
+- **Checked**: 67 tests, the canvas's driven by synthesized events, on
   macOS and on Linux (GNUstep); CI runs them on every push, on Windows too.
 
 ## Limitations

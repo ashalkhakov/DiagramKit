@@ -1,0 +1,54 @@
+name: Build
+
+# DiagramKit, built, tested and installed the familiar way (make, make
+# check, make install; Makefile.apple on macOS) by gnustep-release-actions'
+# workflows, the same as every repository's. Every push is built, tested and
+# uploaded as artifacts: the installed frameworks for Linux (x86_64 and
+# aarch64) and for Windows, and the XCFrameworks for Apple, for what builds
+# on them. A v* tag (or a run started by hand with one) is also released:
+# diagramkit-<version>-ubuntu22.04-<arch>.tar.xz,
+# diagramkit-<version>-windows-clang64-x86_64.tar.xz and
+# diagramkit-<version>-apple.zip, attached to the tag's release (a
+# pre-release when the tag has a '-'), as a client's pins.env fetches them
+# (DIAGRAMKIT_VERSION=<version>). What it builds on is in .github/pins.env.
+on:
+  push:
+    branches-ignore: ['copilot/**']
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'A v* tag to build and release (empty: this branch, as artifacts)'
+        required: false
+        default: ''
+
+# Pushes only: a push to a branch already shows its checks on the branch's
+# pull request. A newer push supersedes the run before it; a release is
+# never cancelled.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: ${{ github.ref_type != 'tag' }}
+
+permissions:
+  contents: write
+
+jobs:
+  linux:
+    uses: ashalkhakov/gnustep-release-actions/.github/workflows/linux.yml@v1
+    with:
+      tag: ${{ inputs.tag }}
+      library: true
+
+  windows:
+    uses: ashalkhakov/gnustep-release-actions/.github/workflows/windows.yml@v1
+    with:
+      tag: ${{ inputs.tag }}
+      library: true
+    secrets: inherit
+
+  macos:
+    uses: ashalkhakov/gnustep-release-actions/.github/workflows/macos.yml@v1
+    with:
+      tag: ${{ inputs.tag }}
+      library: true
+    secrets: inherit

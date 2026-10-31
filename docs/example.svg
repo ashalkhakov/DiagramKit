@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="431pt" height="374pt" viewBox="0 0 431 374">
+<title>A shop's schema</title>
+<rect x="0" y="0" width="431" height="374" fill="#ffffff"/>
+<path d="M146 151 L146 138 M146 131 L146 93" fill="none" stroke="#262633" stroke-width="1"/>
+<path d="M140 151 L146 141 L152 151 M146 141 L146 151" fill="none" stroke="#262633" stroke-width="1"/>
+<ellipse cx="146" cy="134.5" rx="3.5" ry="3.5" fill="none" stroke="#262633" stroke-width="1"/>
+<path d="M152 101 L140 101" fill="none" stroke="#262633" stroke-width="1"/>
+<path d="M152 105 L140 105" fill="none" stroke="#262633" stroke-width="1"/>
+<path d="M336 143 L336 130 M336 123 L336 104 M336 97 L336 86" fill="none" stroke="#262633" stroke-width="1"/>
+<path d="M330 143 L336 133 L342 143 M336 133 L336 143" fill="none" stroke="#262633" stroke-width="1"/>
+<ellipse cx="336" cy="126.5" rx="3.5" ry="3.5" fill="none" stroke="#262633" stroke-width="1"/>
+<path d="M342 94 L330 94" fill="none" stroke="#262633" stroke-width="1"/>
+<ellipse cx="336" cy="100.5" rx="3.5" ry="3.5" fill="none" stroke="#262633" stroke-width="1"/>
+<path d="M210 317.5 L190 317.5 L190 244 L146 244 L146 224" fill="none" stroke="#262633" stroke-width="1"/>
+<path d="M210 323.5 L200 317.5 L210 311.5 M200 317.5 L210 317.5" fill="none" stroke="#262633" stroke-width="1"/>
+<path d="M196 323.5 L196 311.5" fill="none" stroke="#262633" stroke-width="1"/>
+<path d="M152 232 L140 232" fill="none" stroke="#262633" stroke-width="1"/>
+<path d="M152 236 L140 236" fill="none" stroke="#262633" stroke-width="1"/>
+<path d="M285 281 L285 231" fill="none" stroke="#262633" stroke-width="1"/>
+<path d="M279 281 L285 271 L291 281 M285 271 L285 281" fill="none" stroke="#262633" stroke-width="1"/>
+<path d="M291 239 L279 239" fill="none" stroke="#262633" stroke-width="1"/>
+<path d="M291 243 L279 243" fill="none" stroke="#262633" stroke-width="1"/>
+<path d="M95 289 L95 278 M95 271 L95 224" fill="none" stroke="#262633" stroke-width="1"/>
+<path d="M89 281 L101 281" fill="none" stroke="#262633" stroke-width="1"/>
+<ellipse cx="95" cy="274.5" rx="3.5" ry="3.5" fill="none" stroke="#262633" stroke-width="1"/>
+<path d="M101 232 L89 232" fill="none" stroke="#262633" stroke-width="1"/>
+<path d="M101 236 L89 236" fill="none" stroke="#262633" stroke-width="1"/>
+<rect x="71" y="20" width="150" height="73" rx="5" fill="#ffffff"/>
+<path d="M71 42 L71 25 C71 22.2 73.2 20 76 20 L216 20 C218.8 20 221 22.2 221 25 L221 42 Z" fill="#d9e6fa"/>
+<path d="M71 42 L221 42" fill="none" stroke="#262633" stroke-width="0.75"/>
+<rect x="71" y="20" width="150" height="73" rx="5" fill="none" stroke="#262633" stroke-width="1"/>
+<text x="146" y="35" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#262633" xml:space="preserve">customers</text>
+<text x="79" y="54.5" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#262633" xml:space="preserve">id  integer</text>
+<text x="79" y="69.5" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#262633" xml:space="preserve">name  text</text>
+<text x="79" y="84.5" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#262633" xml:space="preserve">email  text</text>
+<rect x="261" y="28" width="150" height="58" rx="5" fill="#ffffff"/>
+<path d="M261 50 L261 33 C261 30.2 263.2 28 266 28 L406 28 C408.8 28 411 30.2 411 33 L411 50 Z" fill="#d9e6fa"/>
+<path d="M261 50 L411 50" fill="none" stroke="#262633" stroke-width="0.75"/>
+<rect x="261" y="28" width="150" height="58" rx="5" fill="none" stroke="#262633" stroke-width="1"/>
+<text x="336" y="43" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#262633" xml:space="preserve">categories</text>
+<text x="269" y="62.5" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#262633" xml:space="preserve">id  integer</text>
+<text x="269" y="77.5" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#262633" xml:space="preserve">title  text</text>
+<rect x="71" y="151" width="150" height="73" rx="5" fill="#ffffff"/>
+<path d="M71 173 L71 156 C71 153.2 73.2 151 76 151 L216 151 C218.8 151 221 153.2 221 156 L221 173 Z" fill="#d9e6fa"/>
+<path d="M71 173 L221 173" fill="none" stroke="#262633" stroke-width="0.75"/>
+<rect x="71" y="151" width="150" height="73" rx="5" fill="none" stroke="#262633" stroke-width="1"/>
+<text x="146" y="166" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#262633" xml:space="preserve">orders</text>
+<text x="79" y="185.5" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#262633" xml:space="preserve">id  integer</text>
+<text x="79" y="200.5" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#262633" xml:space="preserve">customer_id  integer</text>
+<text x="79" y="215.5" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#262633" xml:space="preserve">placed_at  timestamp</text>
+<rect x="261" y="143" width="150" height="88" rx="5" fill="#ffffff"/>
+<path d="M261 165 L261 148 C261 145.2 263.2 143 266 143 L406 143 C408.8 143 411 145.2 411 148 L411 165 Z" fill="#d9e6fa"/>
+<path d="M261 165 L411 165" fill="none" stroke="#262633" stroke-width="0.75"/>
+<rect x="261" y="143" width="150" height="88" rx="5" fill="none" stroke="#262633" stroke-width="1"/>
+<text x="336" y="158" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#262633" xml:space="preserve">products</text>
+<text x="269" y="177.5" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#262633" xml:space="preserve">id  integer</text>
+<text x="269" y="192.5" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#262633" xml:space="preserve">category_id  integer</text>
+<text x="269" y="207.5" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#262633" xml:space="preserve">name  text</text>
+<text x="269" y="222.5" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#262633" xml:space="preserve">price  numeric</text>
+<rect x="210" y="281" width="150" height="73" rx="5" fill="#ffffff"/>
+<path d="M210 303 L210 286 C210 283.2 212.2 281 215 281 L355 281 C357.8 281 360 283.2 360 286 L360 303 Z" fill="#d9e6fa"/>
+<path d="M210 303 L360 303" fill="none" stroke="#262633" stroke-width="0.75"/>
+<rect x="210" y="281" width="150" height="73" rx="5" fill="none" stroke="#262633" stroke-width="1"/>
+<text x="285" y="296" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#262633" xml:space="preserve">order_lines</text>
+<text x="218" y="315.5" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#262633" xml:space="preserve">order_id  integer</text>
+<text x="218" y="330.5" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#262633" xml:space="preserve">product_id  integer</text>
+<text x="218" y="345.5" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#262633" xml:space="preserve">quantity  integer</text>
+<rect x="20" y="289" width="150" height="58" rx="5" fill="#ffffff"/>
+<path d="M20 311 L20 294 C20 291.2 22.2 289 25 289 L165 289 C167.8 289 170 291.2 170 294 L170 311 Z" fill="#d9e6fa"/>
+<path d="M20 311 L170 311" fill="none" stroke="#262633" stroke-width="0.75"/>
+<rect x="20" y="289" width="150" height="58" rx="5" fill="none" stroke="#262633" stroke-width="1"/>
+<text x="95" y="304" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#262633" xml:space="preserve">invoices</text>
+<text x="28" y="323.5" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#262633" xml:space="preserve">order_id  integer</text>
+<text x="28" y="338.5" font-family="Tahoma, Verdana, 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#262633" xml:space="preserve">total  numeric</text>
+</svg>

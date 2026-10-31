@@ -168,19 +168,39 @@ DKSVGAdvance(unichar c)
 
 - (void)line:(NSString *)text at:(NSPoint)point font:(DKFont *)font color:(DKColor)color centered:(BOOL)centered
 {
+	[self line:text at:point font:font color:color centered:centered transform:@""];
+}
+
+- (void)line:(NSString *)text at:(NSPoint)point font:(DKFont *)font color:(DKColor)color centered:(BOOL)centered
+   transform:(NSString *)transform
+{
 	if ([text length] == 0) {
 		return;
 	}
 	/* The baseline an em below the top, as AppKit's fonts sit. */
-	[_body appendFormat:@"<text x=\"%@\" y=\"%@\" font-family=\"%@\" font-size=\"%@\"%@%@ %@ xml:space=\"preserve\">%@</text>\n",
+	[_body appendFormat:@"<text x=\"%@\" y=\"%@\" font-family=\"%@\" font-size=\"%@\"%@%@ %@%@ xml:space=\"preserve\">%@</text>\n",
 	                    DKSVGNumber(point.x), DKSVGNumber(point.y + font.size), DKSVGEscape([self family:font]),
 	                    DKSVGNumber(font.size), font.bold ? @" font-weight=\"bold\"" : @"",
-	                    centered ? @" text-anchor=\"middle\"" : @"", DKSVGPaint(@"fill", color), DKSVGEscape(text)];
+	                    centered ? @" text-anchor=\"middle\"" : @"", DKSVGPaint(@"fill", color), transform, DKSVGEscape(text)];
 }
 
 - (void)drawText:(NSString *)text at:(NSPoint)point font:(DKFont *)font color:(DKColor)color centered:(BOOL)centered
 {
 	[self line:text at:point font:font color:color centered:centered];
+}
+
+- (void)drawText:(NSString *)text centeredAt:(NSPoint)point font:(DKFont *)font color:(DKColor)color
+        rotation:(DKTextRotation)rotation
+{
+	/* Laid out level, centred on the point, then turned about it: SVG's y
+	 * grows downward, so -90 is anticlockwise. */
+	NSString *transform = @"";
+	if (rotation != DKTextRotationNone) {
+		transform = [NSString stringWithFormat:@" transform=\"rotate(%@ %@ %@)\"",
+		             rotation == DKTextRotationQuarterAnticlockwise ? @"-90" : @"90", DKSVGNumber(point.x), DKSVGNumber(point.y)];
+	}
+	double height = [self sizeOfText:text font:font].height;
+	[self line:text at:NSMakePoint(point.x, point.y - height / 2) font:font color:color centered:YES transform:transform];
 }
 
 - (void)drawText:(NSString *)text inRect:(NSRect)rect font:(DKFont *)font color:(DKColor)color

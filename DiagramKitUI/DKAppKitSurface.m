@@ -113,6 +113,26 @@ DKBezierPath(DKPath *path)
 	[text drawAtPoint:point withAttributes:attributes];
 }
 
+- (void)drawText:(NSString *)text centeredAt:(NSPoint)point font:(DKFont *)font color:(DKColor)color
+        rotation:(DKTextRotation)rotation
+{
+	if ([text length] == 0) {
+		return;
+	}
+	NSDictionary *attributes = [self attributesFor:font color:color];
+	NSSize size = [text sizeWithAttributes:attributes];
+	/* Turned about the point; in the flipped view -90 is anticlockwise. */
+	[NSGraphicsContext saveGraphicsState];
+	NSAffineTransform *turn = [NSAffineTransform transform];
+	[turn translateXBy:point.x yBy:point.y];
+	if (rotation != DKTextRotationNone) {
+		[turn rotateByDegrees:rotation == DKTextRotationQuarterAnticlockwise ? -90 : 90];
+	}
+	[turn concat];
+	[text drawAtPoint:NSMakePoint(-size.width / 2, -size.height / 2) withAttributes:attributes];
+	[NSGraphicsContext restoreGraphicsState];
+}
+
 - (void)drawText:(NSString *)text inRect:(NSRect)rect font:(DKFont *)font color:(DKColor)color
 {
 	if ([text length] == 0) {

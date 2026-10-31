@@ -25,6 +25,9 @@ typedef NS_ENUM(NSInteger, DKRecordedKind) {
 @property (nonatomic) BOOL dashed;
 @property (nonatomic, copy, nullable) NSString *text;
 @property (nonatomic) NSRect rect;
+/// Text centred on a point: the point (the rect's origin) and its turn.
+@property (nonatomic) BOOL centeredAt;
+@property (nonatomic) DKTextRotation rotation;
 @end
 
 @interface DKRecordingSurface : NSObject <DKSurface>

@@ -66,6 +66,19 @@
 	[_operations addObject:operation];
 }
 
+- (void)drawText:(NSString *)text centeredAt:(NSPoint)point font:(DKFont *)font color:(DKColor)color
+        rotation:(DKTextRotation)rotation
+{
+	DKRecordedOperation *operation = [[DKRecordedOperation alloc] init];
+	operation.kind = DKRecordedText;
+	operation.text = text;
+	operation.color = color;
+	operation.rect = NSMakeRect(point.x, point.y, 0, 0);
+	operation.centeredAt = YES;
+	operation.rotation = rotation;
+	[_operations addObject:operation];
+}
+
 - (void)drawText:(NSString *)text inRect:(NSRect)rect font:(DKFont *)font color:(DKColor)color
 {
 	DKRecordedOperation *operation = [[DKRecordedOperation alloc] init];

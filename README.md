@@ -45,7 +45,8 @@ Build from source:
 
 - **Drawing through a surface** (`DKSurface`): paths (lines, cubic curves,
   rectangles, rounded rectangles, ovals), fills, strokes solid or dashed,
-  text set at a point or wrapped in a rectangle, in flipped diagram points.
+  text set at a point, wrapped in a rectangle, or centred on a point and
+  turned a quarter (a BPMN lane's name), in flipped diagram points.
   `DKAppKitSurface` draws into a view; `DKSVGSurface` writes a standalone
   SVG document with Foundation alone, estimating text widths.
 - **Edge ends** (`DKDrawRoute`): arrows filled and open, UML's triangle and

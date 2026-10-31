@@ -17,8 +17,10 @@
  * double-click and a right-click go to the delegate (a right-click on an
  * item not selected selects it first, as the Finder does). Delete or
  * Backspace sends -delete: up the responder chain, and other keys go up it
- * too. A client with tools (place a shape, draw an edge) takes the presses
- * it wants first (-canvas:mouseDown:atPoint:).
+ * too. What a press does to the selection a client may say instead
+ * (-canvas:selectionForPressOnItem:extending:). A client with tools (place
+ * a shape, draw an edge) takes the presses it wants first
+ * (-canvas:mouseDown:atPoint:).
  *
  * Placed in a client's XIB (a custom view in a scroll view, its data
  * source and delegate outlets connected) or made in code: it sets itself
@@ -64,6 +66,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)canvas:(DKCanvasView *)canvas moveItems:(NSArray *)items by:(NSSize)delta;
 /// The selection changed by a gesture (not by setting it).
 - (void)canvasSelectionDidChange:(DKCanvasView *)canvas;
+/// The selection a press on @a item makes, with Shift or Command
+/// (@a extend) or not; nil: the canvas's own (the item alone, or the
+/// selection kept when it is in it; extending, the item added or taken
+/// away). A drag from the press moves the selection when the item is in
+/// it -- a client whose items have parts (a table's columns, a fact
+/// type's roles) keeps the item selected while it extends the parts.
+- (nullable NSSet *)canvas:(DKCanvasView *)canvas selectionForPressOnItem:(id)item extending:(BOOL)extend;
 /// A double-click on the item, or on nothing (nil).
 - (void)canvas:(DKCanvasView *)canvas doubleClickedItem:(nullable id)item;
 /// The menu for a right-click on the item, or on nothing (nil); nil: the

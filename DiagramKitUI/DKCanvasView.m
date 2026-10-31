@@ -461,7 +461,13 @@ static const double DKMaximumZoom = 6.0;
 		[self setNeedsDisplay:YES];
 		return;
 	}
-	if (extend) {
+	NSSet *chosen = nil;
+	if ([_delegate respondsToSelector:@selector(canvas:selectionForPressOnItem:extending:)]) {
+		chosen = [_delegate canvas:self selectionForPressOnItem:item extending:extend];
+	}
+	if (chosen != nil) {
+		[self select:chosen];
+	} else if (extend) {
 		NSMutableSet *selection = [_selection mutableCopy];
 		if ([selection containsObject:item]) {
 			[selection removeObject:item];

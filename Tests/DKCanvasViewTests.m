@@ -25,6 +25,10 @@
 	/* A tool the test is: presses taken while it is on, and what they did. */
 	BOOL _tool;
 	NSMutableArray<NSString *> *_toolEvents;
+	/* Presses that never take the pressed table away (its columns would be
+	 * what an extending press changes), and how many were asked. */
+	BOOL _keepsPressed;
+	NSUInteger _pressesAsked;
 }
 
 - (void)setUp
@@ -114,6 +118,15 @@
 		[_diagram moveTable:table by:delta];
 	}
 	[canvas reloadData];
+}
+
+- (NSSet *)canvas:(DKCanvasView *)canvas selectionForPressOnItem:(id)item extending:(BOOL)extend
+{
+	if (!_keepsPressed) {
+		return nil;
+	}
+	_pressesAsked++;
+	return extend ? [canvas.selection setByAddingObject:item] : [NSSet setWithObject:item];
 }
 
 - (void)canvasSelectionDidChange:(DKCanvasView *)canvas
@@ -345,6 +358,33 @@
 	[self dragFrom:[self middleOf:@"customers"] to:NSMakePoint([self middleOf:@"customers"].x + 50,
 	                                                          [self middleOf:@"customers"].y)];
 	XCTAssertEqual([_moves count], 1u);
+}
+
+/* The client says what a press selects: an extending press that keeps
+ * what it is on drags the selection, as a plain one does. */
+- (void)testTheDelegateMaySayWhatAPressSelects
+{
+	_keepsPressed = YES;
+	NSUInteger flags[2] = { NSEventModifierFlagShift, NSEventModifierFlagCommand };
+	for (NSUInteger i = 0; i < 2; i++) {
+		[_moves removeAllObjects];
+		_canvas.selection = [NSSet setWithObjects:@"orders", @"products", nil];
+		NSPoint grab = [self middleOf:@"orders"];
+		[_canvas mouseDown:[self mouse:NSEventTypeLeftMouseDown at:grab flags:flags[i] clicks:1]];
+		[_canvas mouseDragged:[self mouse:NSEventTypeLeftMouseDragged at:NSMakePoint(grab.x + 20, grab.y + 10)
+		                            flags:flags[i]
+		                           clicks:1]];
+		[_canvas mouseUp:[self mouse:NSEventTypeLeftMouseUp at:NSMakePoint(grab.x + 20, grab.y + 10) flags:flags[i] clicks:1]];
+		XCTAssertEqualObjects(_canvas.selection, ([NSSet setWithObjects:@"orders", @"products", nil]), @"kept");
+		XCTAssertEqual([_moves count], 1u, @"an extending press drags");
+		XCTAssertEqualObjects([[_moves firstObject] firstObject], (@[ @"orders", @"products" ]));
+		XCTAssertTrue(NSEqualSizes([[[_moves firstObject] lastObject] sizeValue], NSMakeSize(20, 10)));
+	}
+	XCTAssertEqual(_pressesAsked, 2u);
+	/* Not said (nil): the canvas's own, Shift taking the table away. */
+	_keepsPressed = NO;
+	[self clickAt:[self middleOf:@"orders"] flags:NSEventModifierFlagShift];
+	XCTAssertEqualObjects(_canvas.selection, [NSSet setWithObject:@"products"]);
 }
 
 - (void)testTheArrowKeysNudge

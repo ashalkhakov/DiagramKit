@@ -1,5 +1,6 @@
 /* Copyright (c) 2026 Artyom Shalkhakov. MIT. */
 #import "DKCanvasView.h"
+#import "DKSelectors.h"
 #include <math.h>
 
 /* What a gesture is doing, between mouse down and up. */
@@ -855,12 +856,13 @@ static const double DKMaximumZoom = 6.0;
 	[self finishEditing:NO];
 }
 
-/* Escape in the field gives the edit up. */
+/* Escape in the field gives the edit up: cancelOperation: on macOS,
+ * complete: from GNUstep's key bindings. */
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)selector
 {
 	(void)control;
 	(void)textView;
-	if (selector == @selector(cancelOperation:)) {
+	if (DKSameSelector(selector, @selector(cancelOperation:)) || DKSameSelector(selector, @selector(complete:))) {
 		[self cancelEditingText];
 		return YES;
 	}

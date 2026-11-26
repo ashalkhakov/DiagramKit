@@ -561,6 +561,29 @@
 	XCTAssertEqual([_edits count], 1u, @"given up, or unchanged: not told");
 }
 
+/* Escape as the key bindings send it: a selector made from its name, which on
+ * GNUstep is not == the compiler's @selector(), and there complete:. */
+- (void)testEscapeInTheFieldGivesTheEditUp
+{
+	NSRect frame = [_diagram frameOfTable:@"orders"];
+	id<NSTextFieldDelegate> delegate = (id<NSTextFieldDelegate>)_canvas;
+	for (NSString *command in @[ @"cancelOperation:", @"complete:" ]) {
+		[_canvas editTextOfItem:@"orders" text:@"orders" inRect:frame font:nil];
+		NSTextField *field = nil;
+		for (NSView *view in [_canvas subviews]) {
+			if ([view isKindOfClass:[NSTextField class]]) {
+				field = (NSTextField *)view;
+			}
+		}
+		XCTAssertNotNil(field);
+		[field setStringValue:@"purchases"];
+		XCTAssertTrue([delegate control:field textView:nil doCommandBySelector:NSSelectorFromString(command)], @"%@ taken", command);
+		XCTAssertFalse(_canvas.isEditingText, @"%@ ends the edit", command);
+	}
+	XCTAssertFalse([delegate control:nil textView:nil doCommandBySelector:NSSelectorFromString(@"insertNewline:")]);
+	XCTAssertEqual([_edits count], 0u, @"given up: not told");
+}
+
 #pragma mark Zoom
 
 - (void)testTheZoomKeepsDiagramPoints

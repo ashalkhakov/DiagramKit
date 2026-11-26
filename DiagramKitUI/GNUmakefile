@@ -11,7 +11,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 DK_LINKED := $(shell $(call DK_LINK_HEADERS,DiagramKitUI,$(CURDIR)))
 
 DiagramKitUI_OBJC_FILES = $(sort $(wildcard *.m))
-DiagramKitUI_HEADER_FILES = $(filter-out DiagramKitUICompat.h,$(sort $(wildcard *.h)))
+DiagramKitUI_HEADER_FILES = $(filter-out DiagramKitUICompat.h DKSelectors.h,$(sort $(wildcard *.h)))
 DiagramKitUI_INCLUDE_DIRS = -I$(DK_INCLUDE) -I.
 DiagramKitUI_LIB_DIRS = -L$(call DK_FRAMEWORK_LIB,DiagramKit,DiagramKit)
 DiagramKitUI_LIBRARIES_DEPEND_UPON = -lDiagramKit $(GUI_LIBS) $(FND_LIBS) $(OBJC_LIBS) -lm

@@ -562,12 +562,17 @@
 }
 
 /* Escape as the key bindings send it: a selector made from its name, which on
- * GNUstep is not == the compiler's @selector(), and there complete:. */
+ * GNUstep is not always == the compiler's @selector(), and there complete:. */
 - (void)testEscapeInTheFieldGivesTheEditUp
 {
 	NSRect frame = [_diagram frameOfTable:@"orders"];
 	id<NSTextFieldDelegate> delegate = (id<NSTextFieldDelegate>)_canvas;
-	for (NSString *command in @[ @"cancelOperation:", @"complete:" ]) {
+#ifdef GNUSTEP
+	NSArray *escapes = @[ @"cancelOperation:", @"complete:" ];
+#else
+	NSArray *escapes = @[ @"cancelOperation:" ];
+#endif
+	for (NSString *command in escapes) {
 		[_canvas editTextOfItem:@"orders" text:@"orders" inRect:frame font:nil];
 		NSTextField *field = nil;
 		for (NSView *view in [_canvas subviews]) {

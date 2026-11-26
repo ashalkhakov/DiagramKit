@@ -1,7 +1,7 @@
 /* Copyright (c) 2026 Artyom Shalkhakov. MIT. */
 #import "DKCanvasView.h"
-#import "DKSelectors.h"
 #include <math.h>
+#import <objc/runtime.h>
 
 /* What a gesture is doing, between mouse down and up. */
 typedef NS_ENUM(NSInteger, DKGesture) {
@@ -857,12 +857,18 @@ static const double DKMaximumZoom = 6.0;
 }
 
 /* Escape in the field gives the edit up: cancelOperation: on macOS,
- * complete: from GNUstep's key bindings. */
+ * complete: from GNUstep's key bindings (on macOS complete: is Option-Esc,
+ * completion). By name: the key bindings' selectors are made from names,
+ * and on GNUstep those are not always == @selector(). */
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)selector
 {
 	(void)control;
 	(void)textView;
-	if (DKSameSelector(selector, @selector(cancelOperation:)) || DKSameSelector(selector, @selector(complete:))) {
+	BOOL escape = sel_isEqual(selector, @selector(cancelOperation:));
+#ifdef GNUSTEP
+	escape = escape || sel_isEqual(selector, @selector(complete:));
+#endif
+	if (escape) {
 		[self cancelEditingText];
 		return YES;
 	}
